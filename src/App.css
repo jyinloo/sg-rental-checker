@@ -1,0 +1,545 @@
+/* ─────────────────────────────────────────────────────
+   Design tokens (from Figma)
+───────────────────────────────────────────────────── */
+:root {
+  --bg:           #fdfdfd;
+  --text:         #252525;
+  --text-2:       #737373;
+  --text-3:       #b6b6b6;
+  --border:       #b6b6b6;
+  --border-faint: #e4e4e4;
+  --selected:     #354820;
+  --selected-bg:  rgba(53, 72, 32, 0.05);
+  --cta:          #e0ed95;
+  --cta-hover:    #d4e282;
+  --brand:        #FF385C;
+  --brand-faint:  rgba(255, 56, 92, 0.08);
+  --brand-dark:   #E31C5F;
+  --radius:       16px;
+  --pill:         999px;
+  --shadow-card:  0 1px 2px rgba(0,0,0,0.06), 0 4px 20px rgba(0,0,0,0.05);
+}
+
+/* ─────────────────────────────────────────────────────
+   Layout
+───────────────────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+/* ─────────────────────────────────────────────────────
+   Hero section — background image + gradient overlay
+───────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  padding: 56px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('/singapore-skyline.png');
+  background-size: cover;
+  background-position: center 60%;
+  opacity: 0.18;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(253,253,253,0.15) 0%, rgba(253,253,253,0.85) 100%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.hero-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 12px;
+}
+
+.hero-heading {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  line-height: 1.2;
+  max-width: 280px;
+}
+
+/* ─────────────────────────────────────────────────────
+   Main content column
+───────────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  padding: 0 20px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ─────────────────────────────────────────────────────
+   Filter rows — no card wrapper, just bordered rows
+───────────────────────────────────────────────────── */
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1.5px solid var(--border-faint);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg);
+  margin-top: 24px;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  min-height: 60px;
+  gap: 12px;
+  background: var(--bg);
+}
+
+.filter-row + .filter-row {
+  border-top: 1.5px solid var(--border-faint);
+}
+
+
+.filter-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-2);
+  flex-shrink: 0;
+  min-width: 72px;
+}
+
+/* ─────────────────────────────────────────────────────
+   Property type — segmented control
+───────────────────────────────────────────────────── */
+.toggle-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--border-faint);
+  border-radius: 10px;
+  padding: 3px;
+  gap: 3px;
+  flex: 1;
+}
+
+.toggle-btn {
+  border-radius: 8px;
+  padding: 0.5rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-2);
+  background: transparent;
+  border: none;
+  transition: all 0.15s;
+}
+
+.toggle-btn.active {
+  background: var(--bg);
+  color: var(--selected);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.toggle-btn:not(.active):hover {
+  color: var(--text);
+}
+
+/* ─────────────────────────────────────────────────────
+   Location select
+───────────────────────────────────────────────────── */
+.select-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.select-wrapper select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  padding: 0.625rem 2rem 0.625rem 0;
+  border: none;
+  font-size: 0.9375rem;
+  color: var(--text);
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.select-wrapper select option[value=""] {
+  color: var(--text-2);
+}
+
+.select-wrapper select:invalid,
+.select-wrapper select:has(option[value=""]:checked) {
+  color: var(--text-2);
+}
+
+.select-chevron {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.875rem;
+  color: var(--text-3);
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* ─────────────────────────────────────────────────────
+   Room stepper (−  3  +)
+───────────────────────────────────────────────────── */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.stepper-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  color: var(--text);
+  transition: all 0.15s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.stepper-btn:hover:not(:disabled) {
+  border-color: var(--selected);
+  color: var(--selected);
+}
+
+.stepper-btn:disabled {
+  border-color: var(--border-faint);
+  color: var(--text-3);
+  cursor: not-allowed;
+}
+
+.stepper-value {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text);
+  min-width: 80px;
+}
+
+/* ─────────────────────────────────────────────────────
+   Search / CTA button
+───────────────────────────────────────────────────── */
+.search-btn {
+  width: 100%;
+  padding: 1.125rem;
+  border-radius: 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  background: var(--cta);
+  color: var(--text);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 58px;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.search-btn:hover:not(:disabled) {
+  background: var(--cta-hover);
+}
+
+.search-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.search-btn:disabled {
+  background: #f0f0e8;
+  color: var(--text-3);
+  cursor: not-allowed;
+}
+
+/* ─────────────────────────────────────────────────────
+   Loading dots  ("Crunching the numbers...")
+───────────────────────────────────────────────────── */
+.loading-dots span {
+  color: #E2743C;
+  animation: dotFade 1.4s infinite;
+}
+
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotFade {
+  0%, 60%, 100% { opacity: 0.15; }
+  30%            { opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────────────
+   Hint text
+───────────────────────────────────────────────────── */
+.hint {
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--text-3);
+  margin-top: -4px;
+}
+
+/* ─────────────────────────────────────────────────────
+   Result card
+───────────────────────────────────────────────────── */
+.result-card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border-faint);
+  padding: 22px 20px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ── Loading skeleton ── */
+.loading-card {
+  gap: 16px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton-line,
+.skeleton-stat {
+  border-radius: 6px;
+  height: 13px;
+  background: linear-gradient(90deg, #ececec 25%, #e0e0e0 50%, #ececec 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.skeleton-line.wide   { width: 60%; }
+.skeleton-line.medium { width: 40%; }
+
+.skeleton-stat {
+  height: 56px;
+  border-radius: 10px;
+  flex: 1;
+}
+
+/* ── Result heading ── */
+.result-heading {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.result-sep {
+  color: var(--text-3);
+  margin: 0 4px;
+}
+
+/* ── Bar chart ── */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 10px 0;
+  width: 100%;
+  gap: 8px;
+}
+
+.bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+
+.bar-col-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.bar-price {
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.bar-price--secondary {
+  color: var(--text-2);
+}
+
+.bar-price--median {
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.bar-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.bar-arrow {
+  font-size: 0.875rem;
+  color: var(--text-2);
+  line-height: 1;
+}
+
+.bar-tag-text {
+  font-size: 1rem;
+  color: var(--text-2);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.bar-tag-text--median {
+  color: var(--text);
+}
+
+.bar {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.bar--secondary {
+  background: var(--border-faint);
+}
+
+.bar--median {
+  background: #6a8042;
+}
+
+/* ── Description ── */
+.result-description {
+  font-size: 1rem;
+  color: var(--text-2);
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.result-highlight {
+  font-weight: 600;
+  color: #6a8042;
+}
+
+/* ─────────────────────────────────────────────────────
+   Empty / Error states
+───────────────────────────────────────────────────── */
+.empty-card,
+.error-card {
+  text-align: center;
+  padding: 32px 20px;
+  gap: 8px;
+}
+
+.empty-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.empty-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.empty-body {
+  font-size: 0.875rem;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+.error-card .empty-title {
+  color: #C13515;
+}
+
+/* ─────────────────────────────────────────────────────
+   Retry button
+───────────────────────────────────────────────────── */
+.retry-btn {
+  align-self: center;
+  background: transparent;
+  color: var(--selected);
+  border: 1.5px solid var(--selected);
+  border-radius: var(--pill);
+  padding: 0.5rem 1.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: 4px;
+  box-shadow: none;
+}
+
+.retry-btn:hover {
+  background: var(--selected-bg);
+}
+
+/* ─────────────────────────────────────────────────────
+   Desktop
+───────────────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .hero {
+    padding: 72px 32px 52px;
+  }
+
+  .hero-heading {
+    font-size: 2.5rem;
+    max-width: 340px;
+  }
+
+  .main {
+    padding: 0 24px 64px;
+    gap: 14px;
+  }
+
+  .result-card {
+    padding: 24px;
+  }
+}
