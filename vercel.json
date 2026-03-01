@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/ura-api/:path*",
+      "destination": "https://eservice.ura.gov.sg/:path*"
+    }
+  ]
+}
